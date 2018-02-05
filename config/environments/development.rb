@@ -40,10 +40,20 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
   
   # ActionMailer Config
-  config.action_mailer.default_url_options = { host: 'https://blocipedia-cilantrol.c9users.io', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'https://blocipedia-cilantrol.c9users.io' }
   config.action_mailer.delivery_method = :smtp
   # change to true to allow email to be sent during development
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
+  ActionMailer::Base.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+
+    #'https://hblockpedia.herokuapp.com',
+    user_name:            ENV["GMAIL_USERNAME"],
+    password:             ENV["GMAIL_PASSWORD"],
+    authentication:       'plain',
+    openssl_verify_mode:  'none'
+  }
 end
