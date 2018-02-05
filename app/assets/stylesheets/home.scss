@@ -55,8 +55,26 @@
   grid-column: 1 / 2;
 }
 
+.menu > ul  {
+  margin-bottom:  auto;
+}
+
 .content {
+  display: flex;
   grid-column: 2 / -1;
+}
+
+.content >  div:nth-child(1n) {
+  // display: flex
+  // grid-column: 2 / 4;
+  justify-content: center;
+  padding-bottom: 20%;
+}
+
+.content >  div:nth-child(2n) {
+  // display: flex
+  grid-column: 4 / 6;
+  justify-content: center;
 }
 
 .footer {
