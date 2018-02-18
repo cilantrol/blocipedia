@@ -6,7 +6,7 @@
 
 .wrapper > div {
   display: flex;
-  justify-content: center;
+  // justify-content: center;
   align-items: center;
   font-size: 1em;
   /*color: #ffeead;*/
@@ -22,7 +22,7 @@ html, body {
 }
 
 .wrapper > div:nth-child(1n) {
-  background-color: #96ceb4;	
+  background-color: #96ceb4;
 }
 
 .wrapper > div:nth-child(3n) {

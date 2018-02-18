@@ -1,7 +1,7 @@
 <%= render "layouts/cover" %>
 <div class="login">
   <h4>Log in to Continue</h4>
-  
+
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
       <%= f.label :email %><br />
@@ -19,6 +19,7 @@
     <% end -%>
     <div class="actions">
       <%= f.submit "Log in" %>
+      <!--< link_to "Continue without login", authenticated_root_path %>-->
     </div>
   <% end %>
   <div class="links">

@@ -1,0 +1,30 @@
+<div class="wrapper">
+  <div class="header">
+    <%= render "layouts/header" %>
+  </div>
+  <div class="menu">
+    <%= render "layouts/menu" %>
+  </div>
+  <div class="content">
+
+    <div class="container">
+      <div class="row">
+      <div class="col-md-4">
+        <p>Guidelines for Creating Wikis:</p>
+        <ul>
+          <li>Rule 1:</li>
+          <li>Rule 2:</li>
+          <li>Rule 3:</li>
+        </ul>
+      </div>
+      <div class="col-md-8">
+        <%= render partial: 'form', locals: {wiki: @wiki} %>
+      </div>
+    </div>
+    </div>
+
+  </div>
+  <%= render "layouts/footer" %>
+</div>
+
+
