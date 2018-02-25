@@ -6,6 +6,29 @@ require 'random_data'
       password: RandomData.random_sentence
    )
   end
+
+  # Create an admin user
+  admin = User.create!(
+    email:    'admin@asdf.com',
+    password: 'asdfasdf',
+    role:     'admin'
+  )
+
+  # Create a member
+  standard = User.create!(
+    email:    'standard@asdf.com',
+    password: 'asdfasdf',
+    role: 'standard'
+  )
+
+  #create premium
+  premium = User.create!(
+    email:    'premium@asdf.com',
+    password: 'asdfasdf',
+    role:     'premium'
+  )
+
+
   users = User.all
 
   #Create WIKIS

@@ -1,17 +1,26 @@
 class WikisController < ApplicationController
+  # before_action :set
   before_action :authenticate_user!, except: [:index, :show]
-  # before_action :wiki_owner?, only: [:destroy]
+  # before_action :set_wiki, only: [:edit, :update, :destroy, :show]
+
+  # before_action :verify_authorized, except: [:index, :show]
+  after_action :verify_authorized, except: :index
+
+  # after_initialize
 
   def index
     @wikis = Wiki.all
+    # authorize @wikis
   end
 
   def show
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
   end
 
   def new
     @wiki = Wiki.new
+    authorize @wiki
   end
 
   def create
@@ -19,6 +28,7 @@ class WikisController < ApplicationController
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
     @wiki.private = params[:wiki][:private]
+    authorize @wiki
 
     if @wiki.save
       flash[:notice] = "wiki was saved."
@@ -31,11 +41,13 @@ class WikisController < ApplicationController
 
   def edit
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
   end
 
   def update
     @wiki = Wiki.find(params[:id])
     @wiki.assign_attributes(wiki_params)
+    authorize @wiki
 
     if @wiki.save
       flash[:notice] = "Wiki was updated."
@@ -48,6 +60,7 @@ class WikisController < ApplicationController
 
   def destroy
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
     if @wiki.destroy
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
       redirect_to wikis_path
@@ -59,20 +72,13 @@ class WikisController < ApplicationController
 
   private
 
+  def set_wiki
+    @wiki = Wiki.find(params[:id])
+    # authorize @wiki
+  end
+
   def wiki_params
     params.require(:wiki).permit(:title, :body, :public)
   end
-
-  # def wiki_owner?
-  #   @wiki = Wiki.find(params[:id])
-
-  #   if @wiki.user == @user
-  #     flash[:alert] = "Wiki Deleted"
-  #     redirect_to(wiki_path(@wiki.id))
-  #   else
-  #     flash[:alert] = "You do not have permission to delete this Wiki"
-  #   end
-  # end
-
 
 end

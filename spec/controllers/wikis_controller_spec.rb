@@ -1,6 +1,5 @@
 require 'rails_helper'
 include RandomData
-# include SessionsHelper
 
 RSpec.describe WikisController, type: :controller do
   let(:my_user) { create(:user)}
