@@ -8,6 +8,7 @@ require 'rspec/rails'
 require 'devise'
 require 'shoulda/matchers'
 require 'pundit/rspec'
+require 'faker'
 # require 'support/factory_girl'
 # Add additional requires below this line. Rails is not loaded until this point!
 

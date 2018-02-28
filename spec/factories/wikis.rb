@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :wiki do
-    title RandomData.random_sentence
-    body RandomData.random_paragraph
+    title Faker::Lorem.sentence(2)
+    body Faker::Lorem.paragraph
     private false
     user nil
   end
