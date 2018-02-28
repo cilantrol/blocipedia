@@ -24,9 +24,9 @@
       </div>
 
       <div class="col-md-4">
-        <!--<=% if policy(@wiki).create? %>-->
+        <% if policy(@wiki).create? %>
           <%= link_to "New Wiki", new_wiki_path, class: 'btn btn-success'  %>
-        <!--<=% end %>-->
+        <% end %>
       </div>
 
     </div>

@@ -1,16 +1,15 @@
 class WikisController < ApplicationController
-  # before_action :set
   before_action :authenticate_user!, except: [:index, :show]
-  # before_action :set_wiki, only: [:edit, :update, :destroy, :show]
 
   # before_action :verify_authorized, except: [:index, :show]
-  after_action :verify_authorized, except: :index
-
+  after_action :verify_authorized, except: [:index]
+  # after_filter :verify_policy_scoped, :only => :index
   # after_initialize
 
   def index
     @wikis = Wiki.all
-    # authorize @wikis
+    @wiki = Wiki.new
+    # @wikis = policy_scope(Wiki)
   end
 
   def show

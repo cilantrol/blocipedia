@@ -10,16 +10,5 @@ class User < ActiveRecord::Base
 
   enum role: [:standard, :admin, :premium]
 
-  # def standard?
-  #   role == 'standard'
-  # end
-
-  # def admin?
-  #   role == 'admin'
-  # end
-
-  # def premium?
-  #   role == 'premium'
-  # end
 
 end
