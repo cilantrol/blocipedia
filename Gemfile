@@ -23,9 +23,14 @@ gem 'devise'
 #ENV
 gem 'figaro'
 
+#policy and permissions
 gem 'pundit'
 
+#random seeding
 gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
+
+#payment
+gem 'stripe'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

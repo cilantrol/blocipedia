@@ -3,6 +3,9 @@
   <li><%= link_to "Home", root_path %></li>
   <% if current_user %>
     <li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> </li>
+    <% if current_user.role != 'premium' %>
+      <li><%= link_to "Upgrade Account", new_charge_path %></li>
+    <% end %>
     <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link' %> </li>
     <li>User: <%= current_user.email %></li>
   <% else %>

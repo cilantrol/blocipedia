@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
   before_action :authenticate_user!
-  # after_action :verify_authorized, except: :index
+  # after_action :verify_authorized, except: [:index, :show]
 
   rescue_from Pundit::NotAuthorizedError do
     redirect_to root_url, alert: 'You do not have access to this page'

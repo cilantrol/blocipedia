@@ -1,0 +1,3 @@
+module Amount
+
+end
