@@ -3,11 +3,8 @@ require 'faker'
 
   5.times do
     User.create!(
-      # email:    RandomData.random_email,
-      # password: RandomData.random_sentence
       email: Faker::Internet.unique.safe_email,
       password: Faker::Internet.password(8,16)
-
    )
   end
 
@@ -34,6 +31,10 @@ require 'faker'
 
 
   users = User.all
+
+  users.each do |user|
+   user.update(confirmed_at: Time.now)
+  end
 
   #Create WIKIS
   50.times do |i|

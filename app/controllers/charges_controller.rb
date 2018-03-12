@@ -55,6 +55,12 @@ after_action :subscription, only:  [:create, :update]
 
   def cancelation
     current_user.update_attribute(:role, 'standard')
+    #remove from stripe db
+    # find all Wikis
+    # loop through it
+    # Wiki.user == current_user
+    #   set private = false
+    # end
     flash[:notice] = "Back to Standard & Free, #{current_user.email}."
     redirect_to edit_user_registration_path(current_user)
   end

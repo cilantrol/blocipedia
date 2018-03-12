@@ -2,11 +2,13 @@ class WikisController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   after_action :verify_authorized, except: [:index, :show]
-  # after_filter :verify_policy_scoped, :only => :index
+  after_action :wiki_private, only: [:update]
 
   def index
-    @wikis = policy_scope(Wiki)
-    @wiki = policy_scope(Wiki).new
+    # @wikis = policy_scope(Wiki)
+        @wikis = Wiki.all
+    @wiki = Wiki.new
+    # @wiki = Wiki.new
   end
 
   def show
@@ -15,12 +17,12 @@ class WikisController < ApplicationController
   end
 
   def new
-    @wiki = policy_scope(Wiki).new
+    @wiki = Wiki.new
     authorize @wiki
   end
 
   def create
-    @wiki = policy_scope(Wiki).find(params[:id])
+    @wiki = Wiki.new
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
     @wiki.private = params[:wiki][:private]
@@ -36,12 +38,12 @@ class WikisController < ApplicationController
   end
 
   def edit
-    @wiki = policy_scope(Wiki).find(params[:id])
+    @wiki = Wiki.find(params[:id])
     authorize @wiki
   end
 
   def update
-    @wiki = policy_scope(Wiki).find(params[:id])
+    @wiki = Wiki.find(params[:id])
     @wiki.assign_attributes(wiki_params)
     authorize @wiki
 
@@ -55,7 +57,7 @@ class WikisController < ApplicationController
   end
 
   def destroy
-    @wiki = policy_scope(Wiki).find(params[:id])
+    @wiki = Wiki.find(params[:id])
     authorize @wiki
     if @wiki.destroy
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
@@ -67,6 +69,14 @@ class WikisController < ApplicationController
   end
 
   private
+
+  def wiki_private
+    @wiki = Wiki.find(params[:id])
+    p '%%%%%%%%%%%'
+    p current_user
+    p @wiki
+    @wiki.update_attribute(:private, true)
+  end
 
   def wiki_params
     params.require(:wiki).permit(:title, :body, :public)
