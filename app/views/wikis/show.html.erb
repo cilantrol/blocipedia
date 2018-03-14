@@ -11,7 +11,7 @@
       <p>Created by: <%= @wiki.user.email %></p>
       <p> Private? <%= @wiki.private %></p>
       <div class="col-md-8">
-        <p><%= @wiki.body %></p>
+        <p><%= markdown(@wiki.body) %></p>
       </div>
 
       <div class="col-md-4">

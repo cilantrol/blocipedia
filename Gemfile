@@ -32,6 +32,9 @@ gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 #payment
 gem 'stripe'
 
+#markdown
+gem 'redcarpet', '~> 3.4.0'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
