@@ -9,6 +9,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
+  # GET /users/edit
+  # show wikis of current_user
+  def edit
+    super
+    # @user = User.find(params[:id])
+    # @wikis = @user.wikis.visible_to(current_user)
+    # @wiki = Wiki.find(params[:id])
+  end
+
   # POST /resource
   def create
     super

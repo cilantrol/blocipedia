@@ -3,23 +3,6 @@ class ChargesController < ApplicationController
 after_action :subscription, only:  [:create, :update]
 
   def create
-    # def not relevant
-      # @amount = params[:amount]
-      # @amount = @amount.gsub('$', '').gsub(',', '')
-
-      # begin
-      #   @amount = Float(@amount).round(2)
-      # rescue
-      #   flash[:error] = 'Charge not completed. Please enter a valid amount in USD ($).'
-      #   redirect_to new_charge_path
-      #   return
-      # end
-
-    # @amount = (@amount * 100).to_i # Must be an integer!
-    # end
-
-    # Creates a Stripe Customer object, for associating
-    # with the charge
     customer = Stripe::Customer.create(
     email: current_user.email,
     card: params[:stripeToken]
@@ -55,12 +38,16 @@ after_action :subscription, only:  [:create, :update]
 
   def cancelation
     current_user.update_attribute(:role, 'standard')
+
+    current_user.wikis.each do |wiki|
+      wiki.update_attribute(:private, false)
+    end
+
     #remove from stripe db
-    # find all Wikis
-    # loop through it
-    # Wiki.user == current_user
-    #   set private = false
-    # end
+    # customer_id = ENV["CUSTOMER_ID"]
+    # cu = Stripe::Customer.retrieve(customer_id)
+    # cu.delete
+
     flash[:notice] = "Back to Standard & Free, #{current_user.email}."
     redirect_to edit_user_registration_path(current_user)
   end

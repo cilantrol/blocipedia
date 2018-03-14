@@ -20,18 +20,14 @@ class WikiPolicy < ApplicationPolicy
     end
 
     def resolve
-
-      if !user.present?
+      wikis = []
+      if !user.present? || user.standard?
         scope.where(private: false)
-
       elsif user.admin? || user.premium?
         # return all wikis
-        scope.all
+        wikis = scope.all
       elsif user.standard?
-        # return wikis !private OR wikis that user owns
-        scope.all
-        # scope.where(private: false)
-        # || user.scope.find(params[:id])
+        scope.where(private: false)
       end
     end
   end

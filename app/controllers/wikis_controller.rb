@@ -5,10 +5,8 @@ class WikisController < ApplicationController
   after_action :wiki_private, only: [:update]
 
   def index
-    # @wikis = policy_scope(Wiki)
-        @wikis = Wiki.all
+    @wikis = policy_scope(Wiki)
     @wiki = Wiki.new
-    # @wiki = Wiki.new
   end
 
   def show
@@ -22,10 +20,8 @@ class WikisController < ApplicationController
   end
 
   def create
-    @wiki = Wiki.new
-    @wiki.title = params[:wiki][:title]
-    @wiki.body = params[:wiki][:body]
-    @wiki.private = params[:wiki][:private]
+    @wiki = Wiki.new(wiki_params)
+    @wiki.user = current_user
     authorize @wiki
 
     if @wiki.save
@@ -79,7 +75,7 @@ class WikisController < ApplicationController
   end
 
   def wiki_params
-    params.require(:wiki).permit(:title, :body, :public)
+    params.require(:wiki).permit(:title, :body, :private)
   end
 
 end
