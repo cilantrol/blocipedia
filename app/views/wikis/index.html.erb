@@ -17,7 +17,7 @@
               </h4>
               <small>
                 <p>Created by: <%= wiki.user.email %></p>
-                <%= wiki.body %>
+                <%= markdown(wiki.body) %>
               </small>
             </div>
           </div>

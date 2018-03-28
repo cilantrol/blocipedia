@@ -11,17 +11,28 @@ class WikisController < ApplicationController
 
   def show
     @wiki = Wiki.find(params[:id])
+    @users = User.all
+
     authorize @wiki
   end
 
+# create wiki
+# edit Wiki link to collaborator path/edit
+# after save redirect to wiki # edit for that id
+# create/destroy action
+# collaborator path will list all user array
+
   def new
     @wiki = Wiki.new
+    @users = User.all
+    @wiki.collaborator = Collaborator.new
     authorize @wiki
   end
 
   def create
     @wiki = Wiki.new(wiki_params)
     @wiki.user = current_user
+    @wiki.collaborator = Collaborator.new
     authorize @wiki
 
     if @wiki.save
@@ -31,10 +42,12 @@ class WikisController < ApplicationController
       flash.now[:alert] = "there was an error saving that wiki. please try again."
       render :new
     end
+
   end
 
   def edit
     @wiki = Wiki.find(params[:id])
+    @users = User.all
     authorize @wiki
   end
 
@@ -68,9 +81,6 @@ class WikisController < ApplicationController
 
   def wiki_private
     @wiki = Wiki.find(params[:id])
-    p '%%%%%%%%%%%'
-    p current_user
-    p @wiki
     @wiki.update_attribute(:private, true)
   end
 

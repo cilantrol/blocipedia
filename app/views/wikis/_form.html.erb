@@ -29,6 +29,15 @@
     </div>
   <% end %>
 
+
+
+    <%  @users.each do |user| %>
+      <li><%= f.check_box :collaborator %>
+          <%= user.email %>
+      </li>
+    <% end %>
+
+
   <div class="form-group">
     <%= f.submit "Save", class: 'btn btn-success' %>
   </div>
