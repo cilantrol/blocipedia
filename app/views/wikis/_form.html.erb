@@ -1,4 +1,4 @@
-<%= form_for [wiki] do |f| %>
+<%= form_for @wiki do |f| %>
 
   <% if wiki.errors.any? %>
     <div class="alert alert-danger">
@@ -23,20 +23,10 @@
 
   <% if current_user.admin? || current_user.premium? %>
     <div class"form_group">
-      <%= f.label :public, class: 'checkbox' do %>
-        <%= f.check_box :private %> Private Wiki?
-      <% end %>
+      <%= f.label :private, class: 'checkbox'%>
+      <%= f.check_box :private, {}, true %> Private Wiki?
     </div>
   <% end %>
-
-
-
-    <%  @users.each do |user| %>
-      <li><%= f.check_box :collaborator %>
-          <%= user.email %>
-      </li>
-    <% end %>
-
 
   <div class="form-group">
     <%= f.submit "Save", class: 'btn btn-success' %>

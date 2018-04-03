@@ -1,10 +1,18 @@
 <div class= 'form-group'>
-    <%= form_for([@collaborator, @collaborator.user.build]) do |f| %>
-      <%  @users.each do |user| %>
-        <li><%= f.check_box 'emails[]', user.email %>
-            <%= user.email %>
-        </li>
+  <%= form_for([@wiki, Collaborator.new]) do |f| %>
+    <%= f.label :collaborator %>
+    <%= f.select :user, options_from_collection_for_select(@add_collaborators,"id", "email") %>
+    <%= f.submit 'Save' %>
+  <% end %>
+  <h4>Current collaborators</h4>
+    <%= debug(@cs.map(&:id)) %>
+    <% @cs.each do |c| %>
+      <% if c.wiki_id == @wiki.id %>
+        <p><%= c.email %>
+        <%= link_to "[remove]", collaborator_path(collaborator_id: c.id, user_id: @user.id, wiki_id: @wiki.id) , method: :delete %>
+        </p>
+      <% else %>
+
       <% end %>
-      <%= f.submit 'click to add' %>
     <% end %>
 </div>

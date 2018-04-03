@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180328111920) do
+ActiveRecord::Schema.define(version: 20180328141041) do
 
   create_table "collaborators", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "wiki_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "email"
   end
 
   add_index "collaborators", ["user_id"], name: "index_collaborators_on_user_id"
@@ -52,9 +53,8 @@ ActiveRecord::Schema.define(version: 20180328111920) do
     t.text     "body"
     t.boolean  "private"
     t.integer  "user_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.string   "collaborator"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "wikis", ["user_id"], name: "index_wikis_on_user_id"

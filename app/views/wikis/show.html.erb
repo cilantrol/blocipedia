@@ -9,10 +9,6 @@
     <div class="row">
       <h1><%= @wiki.title %></h1>
       <p>Created by: <%= @wiki.user.email %></p>
-      <%= debug(@wiki.collaborator) %>
-      <%= @wiki.collaborator do |c| %>
-        <p>c.email</p>
-        <% end %>
       <p> Private? <%= @wiki.private %></p>
       <div class="col-md-8">
         <p><%= markdown(@wiki.body) %></p>

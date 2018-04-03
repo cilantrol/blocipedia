@@ -1,42 +1,37 @@
 class CollaboratorsController < ApplicationController
-  before_action :require_sign_in
-
-  def display
-    @collaborator = Collaborator.find(params[:id])
-  end
-
-
-  def new
-    @collaborator = Collaborator.new
-  end
 
   def create
-    @wiki = Wiki.find(params[:id])
-    @user = User.find(params[:id])
-    # @collaborator = @wiki.collaborators.new(:user_id => params[:collaborator][:user_id])
-    @collaborator = Collaborator.new
-    @collaborator.user_id = @user
-    @collaborator.wiki_id = @wiki
+    @user = User.find(params[:collaborator][:user])
+    @wiki = Wiki.find(params[:wiki_id])
+    @collaborator = Collaborator.new(user_id: @user.id, wiki_id: @wiki.id, email: @user.email)
 
-    if collaborator.save
-      flash[:notice] = "Collaborator added."
-      redirect_to @wiki
+    if @wiki.users.include?(@user)
+      @collaborator.destroy
+      flash[:alert] = "#{@user.email} has already been added as a collaborator"
+      redirect_to edit_wiki_path(@wiki)
     else
-      flash[:alert] = "failed."
-      redirect_to root_path
+      if @collaborator.save
+        flash[:notice] = "#{@user.email} added as collaborator"
+      else
+        flash[:alert] = "failed"
+      end
+      redirect_to edit_wiki_path(@wiki)
     end
   end
 
   def destroy
+    @user = User.find(params[:user_id])
     @wiki = Wiki.find(params[:wiki_id])
-    collaborator = current_user.collaborator.build(post: wiki)
+    @cid = Collaborator.find(params[:collaborator_id])
 
-    if collaborator.destroy
-      flash[:notice] = "Collaborator removed."
-      redirect_to @wiki
+    @collaborator = Collaborator.where(params[collaborator_id: @cid.id, user_id: @user.id, wiki_id: @wiki.id])
+
+    if @collaborator.destroy(@cid.id)
+      flash[:notice] = "Collaborator has been removed"
     else
-      flash[:alert] = "failed."
-      redirect_to edit_wiki_path(@wiki)
+      flash[:alert] = "failed to remove collab"
     end
+    redirect_to edit_wiki_path(@wiki)
   end
+
 end

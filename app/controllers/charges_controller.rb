@@ -43,11 +43,6 @@ after_action :subscription, only:  [:create, :update]
       wiki.update_attribute(:private, false)
     end
 
-    #remove from stripe db
-    # customer_id = ENV["CUSTOMER_ID"]
-    # cu = Stripe::Customer.retrieve(customer_id)
-    # cu.delete
-
     flash[:notice] = "Back to Standard & Free, #{current_user.email}."
     redirect_to edit_user_registration_path(current_user)
   end

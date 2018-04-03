@@ -12,27 +12,18 @@ class WikisController < ApplicationController
   def show
     @wiki = Wiki.find(params[:id])
     @users = User.all
-
     authorize @wiki
   end
-
-# create wiki
-# edit Wiki link to collaborator path/edit
-# after save redirect to wiki # edit for that id
-# create/destroy action
-# collaborator path will list all user array
 
   def new
     @wiki = Wiki.new
     @users = User.all
-    @wiki.collaborator = Collaborator.new
     authorize @wiki
   end
 
   def create
     @wiki = Wiki.new(wiki_params)
     @wiki.user = current_user
-    @wiki.collaborator = Collaborator.new
     authorize @wiki
 
     if @wiki.save
@@ -48,12 +39,15 @@ class WikisController < ApplicationController
   def edit
     @wiki = Wiki.find(params[:id])
     @users = User.all
+    @user = current_user
+    @add_collaborators = User.where.not(id: current_user.id)
+    @cs = Collaborator.all
     authorize @wiki
   end
 
   def update
     @wiki = Wiki.find(params[:id])
-    @wiki.assign_attributes(wiki_params)
+    @wiki.update_attributes(wiki_params)
     authorize @wiki
 
     if @wiki.save
