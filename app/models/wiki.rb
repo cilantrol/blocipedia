@@ -5,4 +5,6 @@ class Wiki < ActiveRecord::Base
 
   validates :title, length: { minimum: 3 }, presence: true
   validates :body, length: { minimum: 15 }, presence: true
+  validates_inclusion_of :private, in: [true, false]
+
 end

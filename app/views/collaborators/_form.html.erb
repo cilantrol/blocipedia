@@ -5,7 +5,7 @@
     <%= f.submit 'Save' %>
   <% end %>
   <h4>Current collaborators</h4>
-    <%= debug(@cs.map(&:id)) %>
+
     <% @cs.each do |c| %>
       <% if c.wiki_id == @wiki.id %>
         <p><%= c.email %>
